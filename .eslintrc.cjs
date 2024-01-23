@@ -14,7 +14,6 @@ module.exports = {
     "react-refresh/only-export-components": "warn",
     "react/react-in-jsx-scope": "off",
     "no-console": "warn",
-    // "no-console": ["wran", { allow: ["warn", "error", "info"] }],
     "no-unused-vars": "warn",
   },
 };
