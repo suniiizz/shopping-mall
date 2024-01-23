@@ -1,33 +1,46 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Navbar, Container, Nav } from "react-bootstrap";
+import data from "./Data";
+import Product from "./Product";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [camera] = useState(data);
 
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <Navbar>
+          <Container>
+            <Navbar.Brand href="#home">Shop</Navbar.Brand>
+            <Nav className="me-auto">
+              <Nav.Link href="#home">Home</Nav.Link>
+              <Nav.Link href="#features">Menu</Nav.Link>
+              <Nav.Link href="#pricing">Cart</Nav.Link>
+            </Nav>
+          </Container>
+        </Navbar>
+
+        <div className="main-bg"></div>
+
+        <div className="container mt-4">
+          <div className="row justify-content-center">
+            {camera.map((item) => {
+              return (
+                <Product
+                  key={item.id}
+                  src={
+                    "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  }
+                  title={item.title}
+                  content={item.content}
+                  price={item.price}
+                />
+              );
+            })}
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
