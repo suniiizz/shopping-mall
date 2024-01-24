@@ -1,4 +1,11 @@
-const data = [
+export type Props = {
+  id: number | string;
+  title?: string;
+  content?: string;
+  price?: number;
+}[];
+
+const data: Props = [
   {
     id: 0,
     title: "White and Black",
