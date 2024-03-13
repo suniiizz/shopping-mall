@@ -9,7 +9,7 @@ import Event from "@/routes/Event";
 import data from "@/Data";
 
 const App = () => {
-  const [productData] = useState(data);
+  const [productData, setProductData] = useState(data);
 
   return (
     <>
@@ -17,7 +17,12 @@ const App = () => {
         <Header />
 
         <Routes>
-          <Route path="/" element={<Home productData={productData} />} />
+          <Route
+            path="/"
+            element={
+              <Home productData={productData} setProductData={setProductData} />
+            }
+          />
           <Route
             path="/detail/:id"
             element={<Detail productData={productData} />}

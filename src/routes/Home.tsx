@@ -1,7 +1,14 @@
 import { Props } from "@/Data";
 import { Product } from "@/Product";
+import axios from "axios";
 
-const Home = ({ productData }: { productData: Props }) => {
+const Home = ({
+  productData,
+  setProductData,
+}: {
+  productData: Props;
+  setProductData: React.Dispatch<React.SetStateAction<Props>>;
+}) => {
   return (
     <>
       <div className="main-bg"></div>
@@ -20,6 +27,24 @@ const Home = ({ productData }: { productData: Props }) => {
             );
           })}
         </div>
+      </div>
+
+      <div className="w-full mt-3">
+        <button
+          onClick={() => {
+            axios
+              .get("https://codingapple1.github.io/shop/data2.json")
+              .then((data) => {
+                // console.log("data", data.data);
+                setProductData((prev) => [...prev, ...data.data]);
+              })
+              .catch(() => {
+                alert("데이터를 가져오는데 실패하였습니다.");
+              });
+          }}
+        >
+          더보기
+        </button>
       </div>
     </>
   );

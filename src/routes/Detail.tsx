@@ -1,10 +1,12 @@
 import { Props } from "@/Data";
 import { ProductDetail } from "@/Product";
 import { useEffect, useState } from "react";
+import { Nav } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 const Detail = ({ productData }: { productData: Props }) => {
   const [arlert, setAlert] = useState(true);
+  const [tab, setTab] = useState(0);
   const { id } = useParams();
   const select = productData.find((x) => {
     return x.id == id;
@@ -29,6 +31,28 @@ const Detail = ({ productData }: { productData: Props }) => {
           price={select?.price}
         />
       </div>
+
+      <Nav variant="tabs" defaultActiveKey="link0">
+        <Nav.Item>
+          <Nav.Link eventKey="link0" onClick={() => setTab(0)}>
+            버튼 0
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link1" onClick={() => setTab(1)}>
+            버튼 1
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link2" onClick={() => setTab(2)}>
+            버튼 2
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+
+      {tab === 0 && <div className="py-2 px-3">내용 0</div>}
+      {tab === 1 && <div className="py-2 px-3">내용 1</div>}
+      {tab === 2 && <div className="py-2 px-3">내용 2</div>}
     </div>
   );
 };
