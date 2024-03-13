@@ -1,6 +1,7 @@
+import axios from "axios";
+
 import { Props } from "@/Data";
 import { Product } from "@/Product";
-import axios from "axios";
 
 const Home = ({
   productData,

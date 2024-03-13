@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "@/components/header";
-import { Routes, Route } from "react-router-dom";
 import Home from "@/routes/Home";
 import Detail from "@/routes/Detail";
 import About from "@/routes/About";
 import Event from "@/routes/Event";
 import data from "@/Data";
 
+export const InventoryContext = createContext({});
+
 const App = () => {
   const [productData, setProductData] = useState(data);
+  const [inventory] = useState([10, 11, 12]);
 
   return (
     <>
@@ -25,7 +29,11 @@ const App = () => {
           />
           <Route
             path="/detail/:id"
-            element={<Detail productData={productData} />}
+            element={
+              <InventoryContext.Provider value={inventory ?? {}}>
+                <Detail productData={productData} />
+              </InventoryContext.Provider>
+            }
           />
           <Route path="/about" element={<About />}>
             <Route path="member" element={<div>Member</div>} />
