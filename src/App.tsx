@@ -13,7 +13,7 @@ export const InventoryContext = createContext({});
 
 const App = () => {
   const [productData, setProductData] = useState(data);
-  const [inventory] = useState([10, 11, 12]);
+  // const [inventory] = useState([10, 11, 12]);
 
   return (
     <>
@@ -30,9 +30,9 @@ const App = () => {
           <Route
             path="/detail/:id"
             element={
-              <InventoryContext.Provider value={inventory ?? {}}>
-                <Detail productData={productData} />
-              </InventoryContext.Provider>
+              // <InventoryContext.Provider value={inventory ?? {}}>
+              <Detail productData={productData} />
+              // </InventoryContext.Provider>
             }
           />
           <Route path="/about" element={<About />}>

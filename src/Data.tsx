@@ -3,6 +3,7 @@ export type Props = {
   title?: string;
   content?: string;
   price?: number;
+  inventory?: number;
 }[];
 
 const data: Props = [
@@ -11,6 +12,7 @@ const data: Props = [
     title: "White and Black",
     content: "Born in France",
     price: 120000,
+    inventory: 10,
   },
 
   {
@@ -18,6 +20,7 @@ const data: Props = [
     title: "Red Knit",
     content: "Born in Seoul",
     price: 110000,
+    inventory: 11,
   },
 
   {
@@ -25,6 +28,7 @@ const data: Props = [
     title: "Grey Yordan",
     content: "Born in the States",
     price: 130000,
+    inventory: 12,
   },
 ];
 

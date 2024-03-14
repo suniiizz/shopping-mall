@@ -1,3 +1,4 @@
+import { useState } from "react";
 import axios from "axios";
 
 import { Props } from "@/Data";
@@ -10,12 +11,39 @@ const Home = ({
   productData: Props;
   setProductData: React.Dispatch<React.SetStateAction<Props>>;
 }) => {
+  const [buttonNum, setButtonNum] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  const handleMoreProduct = () => {
+    setButtonNum((prev) => prev + 1);
+
+    if (buttonNum === 3) {
+      return alert("상품이 더 없습니다!");
+    } else {
+      setLoading(true);
+      axios
+        .get(
+          `https://codingapple1.github.io/shop/data${buttonNum === 2 ? "3" : "2"}.json`
+        )
+        .then((data) => {
+          setProductData((prev) => [...prev, ...data.data]);
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+          alert("데이터를 가져오는데 실패하였습니다.");
+        });
+    }
+
+    return;
+  };
+
   return (
     <>
       <div className="main-bg"></div>
 
       <div className="container mt-4">
-        <div className="row justify-content-center">
+        <div className="flex row justify-content-center">
           {productData.map((item) => {
             return (
               <Product
@@ -24,24 +52,20 @@ const Home = ({
                 title={item.title}
                 content={item.content}
                 price={item.price}
+                id={item.id}
               />
             );
           })}
+          {loading && (
+            <div className="flex justify-center my-4">Loading...</div>
+          )}
         </div>
       </div>
 
-      <div className="w-full mt-3">
+      <div className="w-full mt-3 mb-10">
         <button
           onClick={() => {
-            axios
-              .get("https://codingapple1.github.io/shop/data2.json")
-              .then((data) => {
-                // console.log("data", data.data);
-                setProductData((prev) => [...prev, ...data.data]);
-              })
-              .catch(() => {
-                alert("데이터를 가져오는데 실패하였습니다.");
-              });
+            handleMoreProduct();
           }}
         >
           더보기
