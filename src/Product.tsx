@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { addItem } from "@/store";
+import { useDispatch } from "react-redux";
 
 type Props = {
   src: string;
@@ -26,6 +28,10 @@ const Product = ({ src, title, content, price, id }: Props) => {
 };
 
 const ProductDetail = ({ src, title, content, price, inventory }: Props) => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const productId = location.pathname.split("/")[2];
+
   return (
     <>
       <div className="col-md-6">
@@ -36,7 +42,14 @@ const ProductDetail = ({ src, title, content, price, inventory }: Props) => {
         <p>{content}</p>
         <p>{price?.toLocaleString()}원</p>
         <p className="mt-3">재고 : {inventory ?? "확인불가"}</p>
-        <button className="btn btn-danger mt-3">주문하기</button>
+        <button
+          className="btn btn-danger mt-3"
+          onClick={() => {
+            dispatch(addItem({ id: productId, name: title, count: 1 }));
+          }}
+        >
+          주문하기
+        </button>
       </div>
     </>
   );

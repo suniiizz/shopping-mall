@@ -7,6 +7,8 @@ import Home from "@/routes/Home";
 import Detail from "@/routes/Detail";
 import About from "@/routes/About";
 import Event from "@/routes/Event";
+import Cart from "@/routes/Cart";
+
 import data from "@/Data";
 
 export const InventoryContext = createContext({});
@@ -43,6 +45,7 @@ const App = () => {
             <Route path="1" element={<div>첫 주문 시 이벤트</div>} />
             <Route path="2" element={<div>생일 기념 쿠폰</div>} />
           </Route>
+          <Route path="/cart" element={<Cart />} />
           <Route path="*" element={<div className="py-4">Error</div>} />
         </Routes>
       </div>
