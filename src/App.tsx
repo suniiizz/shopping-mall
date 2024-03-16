@@ -1,5 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useQuery } from "react-query";
+import axios from "axios";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "@/components/header";
@@ -8,7 +10,6 @@ import Detail from "@/routes/Detail";
 import About from "@/routes/About";
 import Event from "@/routes/Event";
 import Cart from "@/routes/Cart";
-
 import data from "@/Data";
 
 export const InventoryContext = createContext({});
@@ -27,10 +28,22 @@ const App = () => {
     }
   }, []);
 
+  const result = useQuery("작명", () =>
+    axios.get("https://codingapple1.github.io/userdata.json").then((a) => {
+      return a.data;
+    })
+  );
+
   return (
     <>
       <div className="App">
         <Header />
+
+        <div>
+          {result.isLoading && "로딩중"}
+          {result.error && "에러남"}
+          {result.data && result.data.name}
+        </div>
 
         <Routes>
           <Route
