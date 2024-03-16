@@ -22,6 +22,19 @@ const Detail = ({ productData }: { productData: Props }) => {
     }, 2000);
   }, []);
 
+  useEffect(() => {
+    const storedData = localStorage.getItem("watched"); //getItem - localStorage 값 읽기
+
+    if (storedData) {
+      const storedDataList = JSON.parse(storedData); //parse - localStorage에 저장된 값 가져와 배열화
+      storedDataList.push(id); //클릭한 상품 id값 위에서 만든 배열에 넣기
+
+      const removeDuplicate = Array.from(new Set(storedDataList)); //중복 제거하기
+
+      localStorage.setItem("watched", JSON.stringify(removeDuplicate)); //setItem - localStorage 값 추가
+    }
+  }, [id]);
+
   return (
     <div className="container flex flex-column">
       {arlert && (

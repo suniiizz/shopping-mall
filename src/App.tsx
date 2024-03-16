@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,10 +12,20 @@ import Cart from "@/routes/Cart";
 import data from "@/Data";
 
 export const InventoryContext = createContext({});
+export const TestContext = createContext({});
 
 const App = () => {
   const [productData, setProductData] = useState(data);
   // const [inventory] = useState([10, 11, 12]);
+
+  useEffect(() => {
+    const localData = localStorage.getItem("watched");
+
+    //loacalStorage에 값이 없을 때만
+    if (!localData?.length) {
+      localStorage.setItem("watched", JSON.stringify([]));
+    }
+  }, []);
 
   return (
     <>
